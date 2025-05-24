@@ -60,6 +60,7 @@
             font-size: 1.2rem;
             opacity: 0.95;
             font-weight: 400;
+            margin: 0;
         }
         .main-content {
             padding: 48px 32px 32px 32px;
@@ -189,10 +190,10 @@
             box-shadow: 0 6px 18px 0 rgba(30,41,59,0.13);
         }
         .btn:disabled {
-            background: #cbd5e1;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
+            background: #cbd5e1 !important;
+            cursor: not-allowed !important;
+            transform: none !important;
+            box-shadow: none !important;
         }
         .progress-bar {
             width: 100%;
@@ -299,6 +300,17 @@
             border-color: var(--primary);
             transform: translateY(-2px) scale(1.01);
         }
+        .feature-item h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .feature-item p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.6;
+        }
         .feature-icon {
             font-size: 2.2rem;
             margin-bottom: 13px;
@@ -312,13 +324,38 @@
             font-size: 1.07rem;
             letter-spacing: 0.01em;
         }
+        .footer p {
+            margin: 0;
+        }
+        /* Page range input */
+        input[type="text"]#pageRange {
+            width: 100%;
+            padding: 10px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 7px;
+            margin-top: 10px;
+            font-size: 1rem;
+            transition: border-color var(--transition);
+            font-family: inherit;
+        }
+        input[type="text"]#pageRange:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
         /* Responsive */
         @media (max-width: 900px) {
+            .container {
+                margin: 20px 10px 0 10px;
+            }
             .main-content {
-                padding: 32px 12px 24px 12px;
+                padding: 32px 16px 24px 16px;
             }
             .features {
-                padding: 32px 12px 24px 12px;
+                padding: 32px 16px 24px 16px;
+            }
+            .converter-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
             }
         }
         @media (max-width: 600px) {
@@ -328,34 +365,89 @@
                 box-shadow: none;
             }
             .header {
-                padding: 32px 10px 22px 10px;
+                padding: 32px 16px 22px 16px;
                 border-radius: 0;
             }
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            .header p {
+                font-size: 1rem;
+            }
             .main-content {
-                padding: 18px 4px 10px 4px;
+                padding: 24px 12px 16px 12px;
             }
             .features {
-                padding: 18px 4px 10px 4px;
+                padding: 24px 12px 16px 12px;
             }
             .converter-card {
-                padding: 22px 8px 16px 8px;
+                padding: 24px 16px 20px 16px;
             }
             .features h2 {
-                font-size: 1.3rem;
+                font-size: 1.8rem;
+            }
+            .card-title {
+                font-size: 1.2rem;
+            }
+            .card-description {
+                font-size: 0.95rem;
+            }
+            .file-input-display {
+                padding: 20px 12px;
+            }
+            .btn {
+                font-size: 1rem;
+                padding: 12px 0;
             }
         }
-        input[type="text"]#pageRange {
-            width: 100%;
-            padding: 10px;
-            border: 1.5px solid #e5e7eb;
-            border-radius: 7px;
-            margin-top: 10px;
-            font-size: 1rem;
-            transition: border-color var(--transition);
+        @media (max-width: 400px) {
+            .header {
+                padding: 24px 12px 18px 12px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .main-content {
+                padding: 20px 8px 12px 8px;
+            }
+            .features {
+                padding: 20px 8px 12px 8px;
+            }
+            .converter-card {
+                padding: 20px 12px 16px 12px;
+            }
+            .card-icon {
+                width: 56px;
+                height: 56px;
+                font-size: 1.8rem;
+            }
+            .file-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .file-size {
+                margin-left: 0;
+            }
+            .remove-file {
+                margin-left: 0;
+                align-self: flex-end;
+            }
         }
-        input[type="text"]#pageRange:focus {
-            border-color: var(--primary);
-            outline: none;
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .converter-card:hover {
+                transform: none;
+            }
+            .btn:hover {
+                transform: none;
+            }
+            .feature-item:hover {
+                transform: none;
+            }
+            .file-input-display:hover {
+                transform: none;
+            }
         }
     </style>
 </head>
@@ -386,6 +478,7 @@
                     <button class="btn" id="convertToImg" onclick="convertImagesToPDF()">Convert to PDF</button>
                     <div class="status-message" id="imageStatus"></div>
                 </div>
+                
                 <!-- PDF Merger -->
                 <div class="converter-card">
                     <div class="card-icon">🔗</div>
@@ -413,11 +506,13 @@
                     <div class="file-input-wrapper">
                         <input type="file" id="splitFile" class="file-input" accept=".pdf">
                         <div class="file-input-display">
-                            <div class="file-input-icon">📄</div>
-                            <div class="file-input-text">Click or drag a PDF file here</div>
+                            <div class="file-input-icon">📄</div>                                                            
+                                <div class="file-input
+                                -text">Click or drag a PDF file here</div>
                         </div>
                     </div>
-                    <input type="text" id="pageRange" placeholder="e.g., 1-3, 5, 7-10">
+                    <div class="file-list" id="splitFileList"></div>
+                    <input type="text" id="pageRange" placeholder="Enter page range (e.g., 1-3,5,7-10)" />
                     <div class="progress-bar" id="splitProgress">
                         <div class="progress-fill"></div>
                     </div>
@@ -425,314 +520,315 @@
                     <div class="status-message" id="splitStatus"></div>
                 </div>
             </div>
-        </div>
-        <div class="features">
-            <h2>Why Choose Our PDF Converter?</h2>
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="feature-icon">🔒</div>
-                    <h3>100% Secure</h3>
-                    <p>All processing happens in your browser. Your files never leave your device.</p>
                 </div>
-                <div class="feature-item">
-                    <div class="feature-icon">⚡</div>
-                    <h3>Lightning Fast</h3>
-                    <p>Convert files instantly without waiting for uploads or downloads.</p>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">💯</div>
-                    <h3>Completely Free</h3>
-                    <p>No hidden fees, no registration required. Use all features for free.</p>
-                </div>
-            </div>
-        </div>
-        <div class="footer">
-            <p>&copy; 2025 PDF Converter. Built with ❤️ for everyone.</p>
-        </div>
+</div>
+<div class="features">
+<h2>Why Use Our PDF Converter?</h2>
+<div class="features-grid">
+    <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <h3>Fast & Easy</h3>
+        <p>Convert, merge, or split PDFs in seconds with a simple interface.</p>
     </div>
-    <script>
-        // Global variables
-        let selectedImageFiles = [];
-        let selectedMergeFiles = [];
-        let selectedSplitFile = null;
+    <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <h3>Secure</h3>
+        <p>All processing happens in your browser. Your files never leave your device.</p>
+    </div>
+    <div class="feature-item">
+        <div class="feature-icon">💸</div>
+        <h3>Completely Free</h3>
+        <p>No registration, no watermarks, no hidden costs. 100% free to use.</p>
+    </div>
+    <div class="feature-item">
+        <div class="feature-icon">📱</div>
+        <h3>Works Everywhere</h3>
+        <p>Use on any device: desktop, tablet, or mobile. No installation required.</p>
+    </div>
+</div>
+</div>
+<div class="footer">
+<p>&copy; 2024 PDF Converter. All rights reserved.</p>
+</div>
+</div>
+<script>
+// Utility functions
+function formatBytes(bytes) {
+if (bytes === 0) return '0 B';
+const k = 1024, sizes = ['B', 'KB', 'MB', 'GB'];
+const i = Math.floor(Math.log(bytes) / Math.log(k));
+return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
 
-        // Initialize drag and drop functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            setupDragAndDrop();
-            setupFileInputs();
-        });
+// Image to PDF
+const imageInput = document.getElementById('imageFiles');
+const imageFileList = document.getElementById('imageFileList');
+let imageFiles = [];
 
-        function setupDragAndDrop() {
-            const dropZones = document.querySelectorAll('.file-input-display');
-            dropZones.forEach(zone => {
-                zone.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    zone.classList.add('dragover');
-                });
-                zone.addEventListener('dragleave', () => {
-                    zone.classList.remove('dragover');
-                });
-                zone.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    zone.classList.remove('dragover');
-                    const files = Array.from(e.dataTransfer.files);
-                    const input = zone.parentElement.querySelector('.file-input');
-                    if (input.id === 'imageFiles') {
-                        handleImageFiles(files);
-                    } else if (input.id === 'mergeFiles') {
-                        handleMergeFiles(files);
-                    } else if (input.id === 'splitFile') {
-                        handleSplitFile(files[0]);
-                    }
-                });
-            });
+imageInput.addEventListener('change', (e) => {
+imageFiles = Array.from(e.target.files);
+renderFileList(imageFiles, imageFileList, 'image');
+});
+
+// Drag & drop for images
+setupDragAndDrop('imageFiles', imageFileList, 'image');
+
+// Merge PDFs
+const mergeInput = document.getElementById('mergeFiles');
+const mergeFileList = document.getElementById('mergeFileList');
+let mergeFiles = [];
+
+mergeInput.addEventListener('change', (e) => {
+mergeFiles = Array.from(e.target.files);
+renderFileList(mergeFiles, mergeFileList, 'merge');
+});
+
+setupDragAndDrop('mergeFiles', mergeFileList, 'merge');
+
+// Split PDF
+const splitInput = document.getElementById('splitFile');
+const splitFileList = document.getElementById('splitFileList');
+let splitFile = null;
+
+splitInput.addEventListener('change', (e) => {
+splitFile = e.target.files[0] || null;
+renderFileList(splitFile ? [splitFile] : [], splitFileList, 'split');
+});
+
+setupDragAndDrop('splitFile', splitFileList, 'split');
+
+// Remove file handlers
+function removeFile(type, idx) {
+if (type === 'image') {
+    imageFiles.splice(idx, 1);
+    renderFileList(imageFiles, imageFileList, 'image');
+} else if (type === 'merge') {
+    mergeFiles.splice(idx, 1);
+    renderFileList(mergeFiles, mergeFileList, 'merge');
+} else if (type === 'split') {
+    splitFile = null;
+    renderFileList([], splitFileList, 'split');
+    splitInput.value = '';
+}
+}
+
+function renderFileList(files, container, type) {
+container.innerHTML = '';
+files.forEach((file, idx) => {
+    const div = document.createElement('div');
+    div.className = 'file-item';
+    div.innerHTML = `
+        <span class="file-name" title="${file.name}">${file.name}</span>
+        <span class="file-size">${formatBytes(file.size)}</span>
+        <button class="remove-file" onclick="removeFile('${type}', ${idx})">Remove</button>
+    `;
+    container.appendChild(div);
+});
+}
+
+// Drag & drop setup
+function setupDragAndDrop(inputId, fileListDiv, type) {
+const input = document.getElementById(inputId);
+const display = input.parentElement.querySelector('.file-input-display');
+display.addEventListener('click', () => input.click());
+display.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    display.classList.add('dragover');
+});
+display.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    display.classList.remove('dragover');
+});
+display.addEventListener('drop', (e) => {
+    e.preventDefault();
+    display.classList.remove('dragover');
+    let files = Array.from(e.dataTransfer.files);
+    if (type === 'image') {
+        files = files.filter(f => f.type.startsWith('image/'));
+        imageFiles = imageFiles.concat(files);
+        renderFileList(imageFiles, fileListDiv, 'image');
+    } else if (type === 'merge') {
+        files = files.filter(f => f.type === 'application/pdf' || f.name.endsWith('.pdf'));
+        mergeFiles = mergeFiles.concat(files);
+        renderFileList(mergeFiles, fileListDiv, 'merge');
+    } else if (type === 'split') {
+        const pdf = files.find(f => f.type === 'application/pdf' || f.name.endsWith('.pdf'));
+        if (pdf) {
+            splitFile = pdf;
+            renderFileList([splitFile], fileListDiv, 'split');
+            splitInput.files = e.dataTransfer.files;
         }
+    }
+});
+}
 
-        function setupFileInputs() {
-            document.getElementById('imageFiles').addEventListener('change', (e) => {
-                handleImageFiles(Array.from(e.target.files));
-            });
-            document.getElementById('mergeFiles').addEventListener('change', (e) => {
-                handleMergeFiles(Array.from(e.target.files));
-            });
-            document.getElementById('splitFile').addEventListener('change', (e) => {
-                handleSplitFile(e.target.files[0]);
-            });
-        }
+// Remove file function for global scope
+window.removeFile = removeFile;
 
-        function handleImageFiles(files) {
-            const validFiles = files.filter(file => file.type.startsWith('image/'));
-            selectedImageFiles = [...selectedImageFiles, ...validFiles];
-            updateFileList('imageFileList', selectedImageFiles, 'image');
-        }
+// Image to PDF conversion
+async function convertImagesToPDF() {
+const status = document.getElementById('imageStatus');
+const progress = document.getElementById('imageProgress');
+const progressFill = progress.querySelector('.progress-fill');
+status.style.display = 'none';
+if (!imageFiles.length) {
+    showStatus(status, 'Please select at least one image.', false);
+    return;
+}
+progress.style.display = 'block';
+progressFill.style.width = '10%';
+try {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF();
+    for (let i = 0; i < imageFiles.length; i++) {
+        const file = imageFiles[i];
+        const imgData = await fileToDataURL(file);
+        const img = new Image();
+        img.src = imgData;
+        await new Promise(res => img.onload = res);
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        let width = img.width, height = img.height;
+        // Scale image to fit page
+        const ratio = Math.min(pageWidth / width, pageHeight / height, 1);
+        width *= ratio;
+        height *= ratio;
+        if (i > 0) pdf.addPage();
+        pdf.addImage(img, 'JPEG', (pageWidth - width) / 2, (pageHeight - height) / 2, width, height);
+        progressFill.style.width = `${((i + 1) / imageFiles.length) * 100}%`;
+    }
+    progressFill.style.width = '100%';
+    pdf.save('images.pdf');
+    showStatus(status, 'PDF created successfully!', true);
+} catch (err) {
+    showStatus(status, 'Failed to convert images: ' + err.message, false);
+}
+setTimeout(() => progress.style.display = 'none', 1000);
+}
 
-        function handleMergeFiles(files) {
-            const validFiles = files.filter(file => file.type === 'application/pdf');
-            selectedMergeFiles = [...selectedMergeFiles, ...validFiles];
-            updateFileList('mergeFileList', selectedMergeFiles, 'merge');
-        }
+function fileToDataURL(file) {
+return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+});
+}
 
-        function handleSplitFile(file) {
-            if (file && file.type === 'application/pdf') {
-                selectedSplitFile = file;
-                showStatus('splitStatus', `Selected: ${file.name}`, 'success');
-            }
-        }
+// Merge PDFs
+async function mergePDFs() {
+const status = document.getElementById('mergeStatus');
+const progress = document.getElementById('mergeProgress');
+const progressFill = progress.querySelector('.progress-fill');
+status.style.display = 'none';
+if (!mergeFiles.length) {
+    showStatus(status, 'Please select at least two PDF files.', false);
+    return;
+}
+progress.style.display = 'block';
+progressFill.style.width = '10%';
+try {
+    const mergedPdf = await PDFLib.PDFDocument.create();
+    for (let i = 0; i < mergeFiles.length; i++) {
+        const bytes = await mergeFiles[i].arrayBuffer();
+        const pdf = await PDFLib.PDFDocument.load(bytes);
+        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        copiedPages.forEach(page => mergedPdf.addPage(page));
+        progressFill.style.width = `${((i + 1) / mergeFiles.length) * 100}%`;
+    }
+    const mergedBytes = await mergedPdf.save();
+    downloadBlob(mergedBytes, 'merged.pdf', 'application/pdf');
+    showStatus(status, 'PDFs merged successfully!', true);
+} catch (err) {
+    showStatus(status, 'Failed to merge PDFs: ' + err.message, false);
+}
+setTimeout(() => progress.style.display = 'none', 1000);
+}
 
-        function updateFileList(listId, files, type) {
-            const list = document.getElementById(listId);
-            list.innerHTML = '';
-            files.forEach((file, index) => {
-                const item = document.createElement('div');
-                item.className = 'file-item';
-                item.innerHTML = `
-                    <span class="file-name">${file.name}</span>
-                    <span class="file-size">${formatFileSize(file.size)}</span>
-                    <button class="remove-file" onclick="removeFile(${index}, '${type}')">Remove</button>
-                `;
-                list.appendChild(item);
-            });
-        }
+// Split PDF
+async function splitPDF() {
+const status = document.getElementById('splitStatus');
+const progress = document.getElementById('splitProgress');
+const progressFill = progress.querySelector('.progress-fill');
+status.style.display = 'none';
+if (!splitFile) {
+    showStatus(status, 'Please select a PDF file.', false);
+    return;
+}
+const pageRange = document.getElementById('pageRange').value.trim();
+if (!pageRange) {
+    showStatus(status, 'Please enter a page range.', false);
+    return;
+}
+progress.style.display = 'block';
+progressFill.style.width = '10%';
+try {
+    const bytes = await splitFile.arrayBuffer();
+    const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+    const totalPages = pdfDoc.getPageCount();
+    const pages = parsePageRange(pageRange, totalPages);
+    if (!pages.length) {
+        showStatus(status, 'Invalid page range.', false);
+        progress.style.display = 'none';
+        return;
+    }
+    const newPdf = await PDFLib.PDFDocument.create();
+    let count = 0;
+    for (const pageNum of pages) {
+        const [copied] = await newPdf.copyPages(pdfDoc, [pageNum - 1]);
+        newPdf.addPage(copied);
+        count++;
+        progressFill.style.width = `${(count / pages.length) * 100}%`;
+    }
+    const newBytes = await newPdf.save();
+    downloadBlob(newBytes, 'split.pdf', 'application/pdf');
+    showStatus(status, 'PDF split successfully!', true);
+} catch (err) {
+    showStatus(status, 'Failed to split PDF: ' + err.message, false);
+}
+setTimeout(() => progress.style.display = 'none', 1000);
+}
 
-        function removeFile(index, type) {
-            if (type === 'image') {
-                selectedImageFiles.splice(index, 1);
-                updateFileList('imageFileList', selectedImageFiles, 'image');
-            } else if (type === 'merge') {
-                selectedMergeFiles.splice(index, 1);
-                updateFileList('mergeFileList', selectedMergeFiles, 'merge');
-            }
+function parsePageRange(range, totalPages) {
+// e.g. "1-3,5,7-10"
+const parts = range.split(',');
+const pages = new Set();
+for (let part of parts) {
+    part = part.trim();
+    if (/^\d+$/.test(part)) {
+        const num = parseInt(part, 10);
+        if (num >= 1 && num <= totalPages) pages.add(num);
+    } else if (/^(\d+)-(\d+)$/.test(part)) {
+        const [, start, end] = part.match(/^(\d+)-(\d+)$/);
+        let s = parseInt(start, 10), e = parseInt(end, 10);
+        if (s > e) [s, e] = [e, s];
+        for (let i = s; i <= e; i++) {
+            if (i >= 1 && i <= totalPages) pages.add(i);
         }
+    }
+}
+return Array.from(pages).sort((a, b) => a - b);
+}
 
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
+function downloadBlob(data, filename, type) {
+const blob = new Blob([data], { type });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = filename;
+document.body.appendChild(a);
+a.click();
+setTimeout(() => {
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}, 100);
+}
 
-        function showProgress(progressId) {
-            document.getElementById(progressId).style.display = 'block';
-            const fill = document.querySelector(`#${progressId} .progress-fill`);
-            fill.style.width = '0%';
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 10;
-                fill.style.width = progress + '%';
-                if (progress >= 100) {
-                    clearInterval(interval);
-                }
-            }, 100);
-        }
-
-        function hideProgress(progressId) {
-            setTimeout(() => {
-                document.getElementById(progressId).style.display = 'none';
-            }, 500);
-        }
-
-        function showStatus(statusId, message, type) {
-            const status = document.getElementById(statusId);
-            status.textContent = message;
-            status.className = `status-message status-${type}`;
-            status.style.display = 'block';
-            setTimeout(() => {
-                status.style.display = 'none';
-            }, 5000);
-        }
-
-        function downloadFile(blob, filename) {
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        // Convert Images to PDF
-        async function convertImagesToPDF() {
-            if (selectedImageFiles.length === 0) {
-                showStatus('imageStatus', 'Please select at least one image file', 'error');
-                return;
-            }
-            showProgress('imageProgress');
-            try {
-                const { jsPDF } = window.jspdf;
-                const pdf = new jsPDF();
-                let isFirstPage = true;
-                for (const file of selectedImageFiles) {
-                    const imageData = await fileToDataURL(file);
-                    const img = new Image();
-                    await new Promise((resolve) => {
-                        img.onload = resolve;
-                        img.src = imageData;
-                    });
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    const pdfWidth = pdf.internal.pageSize.getWidth();
-                    const pdfHeight = pdf.internal.pageSize.getHeight();
-                    const imgRatio = img.width / img.height;
-                    const pdfRatio = pdfWidth / pdfHeight;
-                    let width, height;
-                    if (imgRatio > pdfRatio) {
-                        width = pdfWidth;
-                        height = pdfWidth / imgRatio;
-                    } else {
-                        height = pdfHeight;
-                        width = pdfHeight * imgRatio;
-                    }
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    ctx.drawImage(img, 0, 0);
-                    if (!isFirstPage) {
-                        pdf.addPage();
-                    }
-                    pdf.addImage(canvas.toDataURL('image/jpeg', 0.8), 'JPEG', 
-                        (pdfWidth - width) / 2, (pdfHeight - height) / 2, width, height);
-                    isFirstPage = false;
-                }
-                const pdfBlob = pdf.output('blob');
-                downloadFile(pdfBlob, 'converted-images.pdf');
-                showStatus('imageStatus', 'PDF created successfully!', 'success');
-            } catch (error) {
-                showStatus('imageStatus', 'Error converting images: ' + error.message, 'error');
-            }
-            hideProgress('imageProgress');
-        }
-
-        // Merge PDFs
-        async function mergePDFs() {
-            if (selectedMergeFiles.length < 2) {
-                showStatus('mergeStatus', 'Please select at least 2 PDF files to merge', 'error');
-                return;
-            }
-            showProgress('mergeProgress');
-            try {
-                const { PDFDocument } = PDFLib;
-                const mergedPdf = await PDFDocument.create();
-                for (const file of selectedMergeFiles) {
-                    const arrayBuffer = await file.arrayBuffer();
-                    const pdf = await PDFDocument.load(arrayBuffer);
-                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-                    copiedPages.forEach((page) => mergedPdf.addPage(page));
-                }
-                const pdfBytes = await mergedPdf.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                downloadFile(blob, 'merged-document.pdf');
-                showStatus('mergeStatus', 'PDFs merged successfully!', 'success');
-            } catch (error) {
-                showStatus('mergeStatus', 'Error merging PDFs: ' + error.message, 'error');
-            }
-            hideProgress('mergeProgress');
-        }
-
-        // Split PDF
-        async function splitPDF() {
-            if (!selectedSplitFile) {
-                showStatus('splitStatus', 'Please select a PDF file to split', 'error');
-                return;
-            }
-            const pageRange = document.getElementById('pageRange').value.trim();
-            if (!pageRange) {
-                showStatus('splitStatus', 'Please enter page ranges (e.g., 1-3, 5, 7-10)', 'error');
-                return;
-            }
-            showProgress('splitProgress');
-            try {
-                const { PDFDocument } = PDFLib;
-                const arrayBuffer = await selectedSplitFile.arrayBuffer();
-                const pdf = await PDFDocument.load(arrayBuffer);
-                const pageNumbers = parsePageRange(pageRange, pdf.getPageCount());
-                if (pageNumbers.length === 0) {
-                    throw new Error('Invalid page range');
-                }
-                const newPdf = await PDFDocument.create();
-                const copiedPages = await newPdf.copyPages(pdf, pageNumbers.map(n => n - 1));
-                copiedPages.forEach((page) => newPdf.addPage(page));
-                const pdfBytes = await newPdf.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                downloadFile(blob, `split-pages-${pageRange.replace(/[,\s]/g, '-')}.pdf`);
-                showStatus('splitStatus', 'PDF split successfully!', 'success');
-            } catch (error) {
-                showStatus('splitStatus', 'Error splitting PDF: ' + error.message, 'error');
-            }
-            hideProgress('splitProgress');
-        }
-
-        function parsePageRange(range, totalPages) {
-            const pages = [];
-            const parts = range.split(',');
-            for (const part of parts) {
-                const trimmed = part.trim();
-                if (trimmed.includes('-')) {
-                    const [start, end] = trimmed.split('-').map(n => parseInt(n.trim()));
-                    if (start && end && start <= end && start >= 1 && end <= totalPages) {
-                        for (let i = start; i <= end; i++) {
-                            pages.push(i);
-                        }
-                    }
-                } else {
-                    const pageNum = parseInt(trimmed);
-                    if (pageNum >= 1 && pageNum <= totalPages) {
-                        pages.push(pageNum);
-                    }
-                }
-            }
-            return [...new Set(pages)].sort((a, b) => a - b);
-        }
-
-        function fileToDataURL(file) {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = e => resolve(e.target.result);
-                reader.onerror = reject;
-                reader.readAsDataURL(file);
-            });
-        }
-    </script>
+function showStatus(el, msg, success) {
+el.textContent = msg;
+el.className = 'status-message ' + (success ? 'status-success' : 'status-error');
+el.style.display = 'block';
+}
+</script>
 </body>
 </html>
