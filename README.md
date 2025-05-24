@@ -111,7 +111,7 @@ If this project helped you, please give it a ⭐ on GitHub!
 
 ## 📞 Support
 
-Having issues? [Open an issue](https://github.com/yourusername/pdf-converter/issues) and we'll help you out!
+Having issues? [Open an issue](https://github.com/islamech/pdf-converter/issues) and we'll help you out!
 
 ## 📜 License
 
