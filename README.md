@@ -6,7 +6,6 @@ A powerful, secure, and completely free PDF converter that runs entirely in your
 
 **[Try it now!](https://islamech.github.io/pdf-converter/)**
 
-*Replace `yourusername` with your actual GitHub username*
 
 ## ✨ Features
 
